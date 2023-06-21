@@ -10,10 +10,14 @@ class Consumer
 {
     public static async Task Main(string[] args)
     {
+        Console.WriteLine("cavalinho");
+        await Task.Delay(TimeSpan.FromSeconds(10));
+        Console.WriteLine("cavalinho2");
+
         var config = new ConsumerConfig
         {
             GroupId = "test-consumer",
-            BootstrapServers = "127.0.0.1:9092",
+            BootstrapServers = "kafka:9092",
             AutoOffsetReset = AutoOffsetReset.Earliest
         };
 

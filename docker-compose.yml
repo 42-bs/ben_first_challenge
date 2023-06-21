@@ -19,16 +19,16 @@ services:
       context: ./producer
       dockerfile: Dockerfile
 
-  # consumer:
-  #   image: docker.io/bitnami/dotnet-sdk:6
-  #   command: ["tail", "-f", "/dev/null"]
-  #   networks:
-  #     - network_ben
-  #   depends_on:
-  #     - kafka
-  #   build:
-  #     context: .
-  #     dockerfile: consumer/Dockerfile
+  consumer:
+    image: docker.io/bitnami/dotnet-sdk:6
+    command: ["tail", "-f", "/dev/null"]
+    networks:
+      - network_ben
+    depends_on:
+      - kafka
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
 
 networks:
   network_ben:

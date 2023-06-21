@@ -25,7 +25,7 @@ while(True):
 
     compania = json.dumps(infos)
     producer.send(TOPIC_NAME, key=str(id), value=compania)
+    print(compania)
     time.sleep(1)
-    print(infos)
 
 
