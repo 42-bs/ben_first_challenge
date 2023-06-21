@@ -4,9 +4,18 @@ import randomDataGenerator
 import time
 
 TOPIC_NAME = 'random_energy_data'
-KAFKA_SERVER = 'localhost:9092'
+KAFKA_SERVER = 'kafka:9092'
 
-#producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER, key_serializer=str.encode, value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+try_limits = 5
+while (try_limits > 0):
+    try:
+        producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER, key_serializer=str.encode, value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+        break
+    except:
+        print("failed ...")
+        time.sleep(5)
+        try_limits -= 1
+
 
 start = time.time()
 
@@ -15,7 +24,7 @@ while(True):
     id, infos = randomDataGenerator.generate_random_data()
 
     compania = json.dumps(infos)
-    #producer.send(TOPIC_NAME, key=str(id), value=compania)
+    producer.send(TOPIC_NAME, key=str(id), value=compania)
     time.sleep(1)
     print(infos)
 
