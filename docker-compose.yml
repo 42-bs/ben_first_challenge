@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  kafka:
+    networks: 
+      - network_ben
+    image: docker.io/bitnami/kafka:3.4
+    ports:
+      - "9092:9092"
+    expose:
+      - "9093"
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+
+  producer:
+    networks:
+      - network_ben
+    depends_on:
+      - kafka
+    build:
+      context: ./producer
+      dockerfile: Dockerfile
+
+  # consumer:
+  #   image: docker.io/bitnami/dotnet-sdk:6
+  #   command: ["tail", "-f", "/dev/null"]
+  #   networks:
+  #     - network_ben
+  #   depends_on:
+  #     - kafka
+  #   build:
+  #     context: .
+  #     dockerfile: consumer/Dockerfile
+
+networks:
+  network_ben:
+    driver: bridge
