@@ -8,7 +8,7 @@ using System.Text;
 
 namespace consumer
 {
-    class Consumer
+    public class Consumer
     {
         public static async Task Main(string[] args)
         {
