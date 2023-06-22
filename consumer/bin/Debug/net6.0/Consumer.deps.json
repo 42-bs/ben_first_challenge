@@ -6,13 +6,13 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "teste_dotnetproject/1.0.0": {
+      "Consumer/1.0.0": {
         "dependencies": {
           "Confluent.Kafka": "2.1.1",
           "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
-          "teste_dotnetproject.dll": {}
+          "Consumer.dll": {}
         }
       },
       "Confluent.Kafka/2.1.1": {
@@ -168,7 +168,7 @@
     }
   },
   "libraries": {
-    "teste_dotnetproject/1.0.0": {
+    "Consumer/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
