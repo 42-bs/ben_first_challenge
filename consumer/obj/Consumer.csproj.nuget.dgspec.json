@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/sevla/kafka/consumer/Consumer.csproj": {}
+    "/Users/reinaldo/vs/first_challenge/consumer/Consumer.csproj": {}
   },
   "projects": {
-    "/home/sevla/kafka/consumer/Consumer.csproj": {
+    "/Users/reinaldo/vs/first_challenge/consumer/Consumer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/sevla/kafka/consumer/Consumer.csproj",
+        "projectUniqueName": "/Users/reinaldo/vs/first_challenge/consumer/Consumer.csproj",
         "projectName": "Consumer",
-        "projectPath": "/home/sevla/kafka/consumer/Consumer.csproj",
-        "packagesPath": "/home/sevla/.nuget/packages/",
-        "outputPath": "/home/sevla/kafka/consumer/obj/",
+        "projectPath": "/Users/reinaldo/vs/first_challenge/consumer/Consumer.csproj",
+        "packagesPath": "/Users/reinaldo/.nuget/packages/",
+        "outputPath": "/Users/reinaldo/vs/first_challenge/consumer/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/sevla/.nuget/NuGet/NuGet.Config"
+          "/Users/reinaldo/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[2.1.1, )"
             },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.8, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
@@ -53,16 +57,31 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-x64",
+              "version": "[6.0.11, 6.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.11, 6.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.118/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/Cellar/dotnet/7.0.100/libexec/sdk/7.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }

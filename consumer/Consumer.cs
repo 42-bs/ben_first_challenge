@@ -5,9 +5,30 @@ using System.Threading.Tasks;
 using Confluent.Kafka;
 using Newtonsoft.Json;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace consumer
 {
+	public class InfoContext : DbContext
+	{
+		public DbSet<InfoTable> InfoTable { get; set; }
+		public DbSet<IdTable> IdTable { get; set; }
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			optionsBuilder.UseSqlServer(
+				@"Server=sqlserver1;Trusted_Connection=True;");
+		}
+	}
+	public class IdTable
+	{
+		public long Id { get; set; }
+	}
+	public class InfoTable
+	{
+		public string ConsumerUnity { get; set; }
+		public double Value { get; set; }
+		public DateTime Date { get; set; }
+	}
     public class Consumer
     {
         public static async Task Main(string[] args)

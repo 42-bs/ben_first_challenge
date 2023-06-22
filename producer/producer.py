@@ -27,5 +27,3 @@ while(True):
     producer.send(TOPIC_NAME, key=str(id), value=compania)
     print(compania)
     time.sleep(1)
-
-
