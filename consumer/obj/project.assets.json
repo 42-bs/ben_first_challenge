@@ -293,9 +293,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/sevla/kafka/consumer/teste_dotnetproject.csproj",
-      "projectName": "teste_dotnetproject",
-      "projectPath": "/home/sevla/kafka/consumer/teste_dotnetproject.csproj",
+      "projectUniqueName": "/home/sevla/kafka/consumer/Consumer.csproj",
+      "projectName": "Consumer",
+      "projectPath": "/home/sevla/kafka/consumer/Consumer.csproj",
       "packagesPath": "/home/sevla/.nuget/packages/",
       "outputPath": "/home/sevla/kafka/consumer/obj/",
       "projectStyle": "PackageReference",

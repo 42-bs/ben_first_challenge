@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aDPQwYclOk+h13o6HG85/zT7o27+v6pq/aSKmjBGcGqMqq5+xfWhfYulvUA7j9gjcPYQ1ZRHmWfxVDWh2gWE4A==",
+  "dgSpecHash": "X+f2ktjTU69hJU/98+KVCECWtsgE8rm6ruALNZYIZD3+f0/H8u5DznzCy+qrlD2LN4gZLUgeXfV3XeV/NmVuNw==",
   "success": true,
-  "projectFilePath": "/home/sevla/kafka/consumer/teste_dotnetproject.csproj",
+  "projectFilePath": "/home/sevla/kafka/consumer/Consumer.csproj",
   "expectedPackageFiles": [
     "/home/sevla/.nuget/packages/confluent.kafka/2.1.1/confluent.kafka.2.1.1.nupkg.sha512",
     "/home/sevla/.nuget/packages/librdkafka.redist/2.1.1/librdkafka.redist.2.1.1.nupkg.sha512",
