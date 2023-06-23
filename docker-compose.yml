@@ -9,8 +9,8 @@ services:
       - "9092"
     environment:
       - ALLOW_PLAINTEXT_LISTENER=yes
-    depends_on:
-      - sqlserver1
+    # depends_on:
+      # - sqlserver1
 
   producer:
     networks:
@@ -31,19 +31,21 @@ services:
       context: ./consumer
       dockerfile: Dockerfile
     command: dotnet run
-
-  sqlserver1:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    networks:
-      - network_ben
-    environment:
-      ACCEPT_EULA: ${DB1_ACCEPT_EULA}
-      MSSQL_SA_PASSWORD: ${DB1_MSSQL_SA_PASSWORD}
-      MSSQL_PID: ${DB1_MSSQL_PID}
-    ports:
-      - "1433:1433"
     volumes:
-      - ./db/db1:/var/opt/mssql/data
+      - ./consumer/litedb.sqlite:/appcsharp/litedb.sqlite
+
+  # sqlserver1:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   networks:
+  #     - network_ben
+  #   environment:
+  #     ACCEPT_EULA: ${DB1_ACCEPT_EULA}
+  #     MSSQL_SA_PASSWORD: ${DB1_MSSQL_SA_PASSWORD}
+  #     MSSQL_PID: ${DB1_MSSQL_PID}
+  #   ports:
+  #     - "1433:1433"
+  #   volumes:
+  #     - ./db/db1:/var/opt/mssql/data
 
 networks:
   network_ben:

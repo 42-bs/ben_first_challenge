@@ -162,3 +162,6 @@ cython_debug/
 # MSSQL DB Data
 db/db1/*
 !db/db1/.*
+
+# SQLite
+*.sqlite
