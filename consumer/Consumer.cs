@@ -32,6 +32,7 @@ namespace consumer
 		public long CompanyId { get; set; }
 		public string? ConsumerUnity { get; set; }
 		public double? Value { get; set; }
+		[Column(TypeName = "DATE")]
 		public DateTime Timestamp { get; set; }
 	}
     public class Consumer
@@ -74,7 +75,8 @@ namespace consumer
 								infotable.CompanyId = long.Parse(message.Key);
 								infotable.ConsumerUnity = message.Value["Consumer Unity"].ToString();
 								infotable.Value = double.Parse(message.Value["Value"].ToString());
-								infotable.Timestamp = DateTime.FromFileTime(Convert.ToInt64(message.Value["Timestamp"]));
+								infotable.Timestamp = DateTime.UnixEpoch.AddSeconds(Convert.ToDouble(message.Value["Timestamp"]));
+								Console.WriteLine(infotable.Timestamp);
 								db.My_Info_Table.Add(infotable);
 								db.SaveChanges();
 							}
