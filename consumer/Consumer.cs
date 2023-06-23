@@ -5,9 +5,36 @@ using System.Threading.Tasks;
 using Confluent.Kafka;
 using Newtonsoft.Json;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace consumer
 {
+	public class InfoContext : DbContext
+	{
+		public DbSet<InfoTable> My_Info_Table { get; set; }
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			optionsBuilder.UseSqlite("Data Source=litedb.sqlite");
+		}
+
+		// protected override void OnModelCreating(ModelBuilder modelBuilder)
+		// {
+		// 	modelBuilder.Entity<InfoTable>()
+		// 		.HasKey(i => i.CompanyId);
+		// }
+	}
+	public class InfoTable
+	{
+		[Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
+		public long CompanyId { get; set; }
+		public string? ConsumerUnity { get; set; }
+		public double? Value { get; set; }
+		[Column(TypeName = "DATE")]
+		public DateTime Timestamp { get; set; }
+	}
     public class Consumer
     {
         public static async Task Main(string[] args)
@@ -41,11 +68,18 @@ namespace consumer
                         {
                             var consumerResult = consumer.Consume(cancellationTokenSource.Token);
                             var message = consumerResult.Message;
-                            Console.WriteLine($"\nConsumed message 'ID: {message.Key}' at: '{consumerResult.TopicPartitionOffset}'.");
-                            foreach (var item in message.Value)
-                            {
-                                Console.WriteLine($"Key: {item.Key}\t: {item.Value}");
-                            }
+                            Console.WriteLine($"\nConsumed message at: '{consumerResult.TopicPartitionOffset}'.");
+							using (var db = new InfoContext())
+							{
+								InfoTable infotable = new InfoTable();
+								infotable.CompanyId = long.Parse(message.Key);
+								infotable.ConsumerUnity = message.Value["Consumer Unity"].ToString();
+								infotable.Value = double.Parse(message.Value["Value"].ToString());
+								infotable.Timestamp = DateTime.UnixEpoch.AddSeconds(Convert.ToDouble(message.Value["Timestamp"]));
+								Console.WriteLine(infotable.Timestamp);
+								db.My_Info_Table.Add(infotable);
+								db.SaveChanges();
+							}
                         }
                         catch (ConsumeException e)
                         {

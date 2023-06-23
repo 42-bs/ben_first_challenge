@@ -13,9 +13,10 @@ max_digits_of_consumer_unity = 10
 max_energy_value = 9999999
 
 characters_allowed = string.ascii_letters + string.digits
+id_list = [random.randrange(1, long_max) for _ in range(50)]
 
 def generate_random_data():
-    id = random.randrange(1, long_max)
+    id = random.choice(id_list)
     consumer_unity = ''.join(random.choices(characters_allowed, k=max_digits_of_consumer_unity))
     value = round(random.uniform(1, max_energy_value), 2)
     date = datetime.now().timestamp()

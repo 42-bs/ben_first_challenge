@@ -6,14 +6,13 @@ import time
 TOPIC_NAME = 'random_energy_data'
 KAFKA_SERVER = 'kafka:9092'
 
-try_limits = 20
+try_limits = 30
 while (try_limits > 0):
     try:
         producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER, key_serializer=str.encode, value_serializer=lambda v: json.dumps(v).encode('utf-8'))
         break
     except:
-        print("failed ...")
-        time.sleep(5)
+        time.sleep(10)
         try_limits -= 1
 
 
@@ -27,5 +26,3 @@ while(True):
     producer.send(TOPIC_NAME, key=str(id), value=compania)
     print(compania)
     time.sleep(1)
-
-
