@@ -2,7 +2,7 @@ version: '3'
 
 services:
   kafka:
-    networks: 
+    networks:
       - network_ben
     image: docker.io/bitnami/kafka:3.4
     ports:
@@ -33,6 +33,21 @@ services:
     command: dotnet run
     volumes:
       - ./consumer/litedb.sqlite:/appcsharp/litedb.sqlite
+
+  api1:
+    image: docker.io/bitnami/dotnet-sdk:6
+    networks:
+      - network_ben
+    # depends_on:
+    #   - producer
+    build:
+      context: ./api1
+      dockerfile: Dockerfile
+    ports:
+      - "7229:7229"
+    command: dotnet run
+    volumes:
+      - ./consumer/litedb.sqlite:/api1/litedb.sqlite
 
   # sqlserver1:
   #   image: mcr.microsoft.com/mssql/server:2022-latest
