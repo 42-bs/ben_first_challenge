@@ -32,22 +32,22 @@ services:
       dockerfile: Dockerfile
     command: dotnet run
     volumes:
-      - ./consumer/litedb.sqlite:/appcsharp/litedb.sqlite
+      - sqlite_volume:/appcsharp
 
   api1:
     image: docker.io/bitnami/dotnet-sdk:6
     networks:
       - network_ben
-    # depends_on:
-    #   - producer
     build:
       context: ./api1
       dockerfile: Dockerfile
     ports:
-      - "7229:7229"
+      - "5287:5287"
     command: dotnet run
     volumes:
-      - ./consumer/litedb.sqlite:/api1/litedb.sqlite
+      - sqlite_volume:/api1
+    # depends_on:
+    #   - producer
 
   # sqlserver1:
   #   image: mcr.microsoft.com/mssql/server:2022-latest
@@ -65,3 +65,10 @@ services:
 networks:
   network_ben:
     driver: bridge
+
+volumes:
+  sqlite_volume:
+    driver_opts:
+      o: bind
+      type: none
+      device: ./sqlite

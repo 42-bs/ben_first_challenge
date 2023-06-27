@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0
 
 WORKDIR /api1
 
-EXPOSE 7229
+EXPOSE 5287
 
 COPY *.csproj .
 
