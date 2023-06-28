@@ -40,9 +40,10 @@ services:
     build:
       context: ./consumer
       dockerfile: Dockerfile
-    command: dotnet run --urls=http://localhost:5286
+    command: dotnet run
     volumes:
-      - ./consumer/litedb.sqlite:/appcsharp/litedb.sqlite
+      - ./consumer/litedb.sqlite:/appcsharp/litedp.sqlite
+      # - sqlite_volume:/appcsharp
 
   # sqlserver1:
   #   image: mcr.microsoft.com/mssql/server:2022-latest
@@ -60,3 +61,10 @@ services:
 networks:
   network_ben:
     driver: bridge
+
+volumes:
+  sqlite_volume:
+    driver_opts:
+      o: bind
+      type: none
+      device: ./sqlite
