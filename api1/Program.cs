@@ -1,6 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.InMemory;
-using Microsoft.Extensions.Configuration;
 using api1.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// builder.Services.AddDbContext<InfoContext>(opt=>opt.UseInMemoryDatabase("lilhorse"));
 builder.Services.AddDbContext<InfoContext>(opt=>opt.UseSqlite("Data Source=/app/litedb.sqlite"));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -18,12 +18,6 @@ namespace consumer
 		{
 			optionsBuilder.UseSqlite("Data Source=litedb.sqlite");
 		}
-
-		// protected override void OnModelCreating(ModelBuilder modelBuilder)
-		// {
-		// 	modelBuilder.Entity<InfoTable>()
-		// 		.HasKey(i => i.CompanyId);
-		// }
 	}
 	public class InfoTable
 	{
