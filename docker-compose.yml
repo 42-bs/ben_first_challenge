@@ -2,7 +2,7 @@ version: '3'
 
 services:
   kafka:
-    networks: 
+    networks:
       - network_ben
     image: docker.io/bitnami/kafka:3.4
     ports:
@@ -21,18 +21,32 @@ services:
       context: ./producer
       dockerfile: Dockerfile
 
+  api1:
+    networks:
+      - network_ben
+    depends_on:
+      - consumer
+    build:
+      context: ./api1
+      dockerfile: Dockerfile
+    ports:
+      - "5002:80"
+    volumes:
+      - ./db/sqlite/:/app/db/
+
   consumer:
-    image: docker.io/bitnami/dotnet-sdk:6
     networks:
       - network_ben
     depends_on:
       - producer
+    volumes:
+      - ./db/sqlite/:/db/
     build:
       context: ./consumer
       dockerfile: Dockerfile
-    command: dotnet run
-    volumes:
-      - ./consumer/litedb.sqlite:/appcsharp/litedb.sqlite
+    command: >
+      sh -c "dotnet ef database update && dotnet run"
+    # - sqlite_volume:/appcsharp
 
   # sqlserver1:
   #   image: mcr.microsoft.com/mssql/server:2022-latest
@@ -50,3 +64,10 @@ services:
 networks:
   network_ben:
     driver: bridge
+
+volumes:
+  sqlite_volume:
+    driver_opts:
+      o: bind
+      type: none
+      device: ./sqlite
