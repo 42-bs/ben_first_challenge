@@ -24,26 +24,29 @@ services:
   api1:
     networks:
       - network_ben
+    depends_on:
+      - consumer
     build:
       context: ./api1
       dockerfile: Dockerfile
     ports:
       - "5002:80"
     volumes:
-      - ./consumer/litedb.sqlite:/app/litedb.sqlite
+      - ./db/sqlite/:/app/db/
 
   consumer:
     networks:
       - network_ben
     depends_on:
       - producer
+    volumes:
+      - ./db/sqlite/:/db/
     build:
       context: ./consumer
       dockerfile: Dockerfile
-    command: dotnet run
-    volumes:
-      - ./consumer/litedb.sqlite:/appcsharp/litedp.sqlite
-      # - sqlite_volume:/appcsharp
+    command: >
+      sh -c "dotnet ef database update && dotnet run"
+    # - sqlite_volume:/appcsharp
 
   # sqlserver1:
   #   image: mcr.microsoft.com/mssql/server:2022-latest

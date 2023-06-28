@@ -16,7 +16,7 @@ namespace consumer
 		public DbSet<InfoTable> My_Info_Table { get; set; }
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlite("Data Source=litedb.sqlite");
+			optionsBuilder.UseSqlite("Data Source=/db/litedb.sqlite");
 		}
 	}
 	public class InfoTable
