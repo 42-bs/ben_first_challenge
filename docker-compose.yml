@@ -21,8 +21,18 @@ services:
       context: ./producer
       dockerfile: Dockerfile
 
+  api1:
+    networks:
+      - network_ben
+    build:
+      context: ./api1
+      dockerfile: Dockerfile
+    ports:
+      - "5002:80"
+    volumes:
+      - ./consumer/litedb.sqlite:/app/litedb.sqlite
+
   consumer:
-    image: docker.io/bitnami/dotnet-sdk:6
     networks:
       - network_ben
     depends_on:
@@ -30,24 +40,9 @@ services:
     build:
       context: ./consumer
       dockerfile: Dockerfile
-    command: dotnet run
+    command: dotnet run --urls=http://localhost:5286
     volumes:
       - ./consumer/litedb.sqlite:/appcsharp/litedb.sqlite
-
-  api1:
-    image: docker.io/bitnami/dotnet-sdk:6
-    networks:
-      - network_ben
-    # depends_on:
-    #   - producer
-    build:
-      context: ./api1
-      dockerfile: Dockerfile
-    ports:
-      - "7229:7229"
-    command: dotnet run
-    volumes:
-      - ./consumer/litedb.sqlite:/api1/litedb.sqlite
 
   # sqlserver1:
   #   image: mcr.microsoft.com/mssql/server:2022-latest

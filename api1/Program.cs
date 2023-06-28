@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // builder.Services.AddDbContext<InfoContext>(opt=>opt.UseInMemoryDatabase("lilhorse"));
-builder.Services.AddDbContext<InfoContext>(opt=>opt.UseSqlite("Data Source=./api1/litedb.sqlite"));
+builder.Services.AddDbContext<InfoContext>(opt=>opt.UseSqlite("Data Source=/app/litedb.sqlite"));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -24,9 +24,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
-app.UseAuthorization();
+// app.UseAuthorization();
 
 app.MapControllers();
 

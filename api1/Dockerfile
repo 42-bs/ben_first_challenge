@@ -1,13 +1,17 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
-WORKDIR /api1
+WORKDIR /source
 
-EXPOSE 7229
+# EXPOSE 5287
+# ENV ASPNETCORE_URLS=http://*:5287
 
 COPY *.csproj .
-
-RUN dotnet restore && dotnet dev-certs https --trust
+RUN dotnet restore
 
 COPY . .
+RUN dotnet publish --self-contained false -o /app
 
-CMD [ "dotnet", "run" ]
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /app
+COPY --from=build /app .
+ENTRYPOINT [ "dotnet", "api1.dll" ]

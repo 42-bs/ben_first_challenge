@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/juliana/42-bosh/first_challenge/api1/api1.csproj": {}
+    "/Users/robson/dev/42/labs/bosch/ben/ben_first_challenge/api1/api1.csproj": {}
   },
   "projects": {
-    "/home/juliana/42-bosh/first_challenge/api1/api1.csproj": {
+    "/Users/robson/dev/42/labs/bosch/ben/ben_first_challenge/api1/api1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/juliana/42-bosh/first_challenge/api1/api1.csproj",
+        "projectUniqueName": "/Users/robson/dev/42/labs/bosch/ben/ben_first_challenge/api1/api1.csproj",
         "projectName": "api1",
-        "projectPath": "/home/juliana/42-bosh/first_challenge/api1/api1.csproj",
-        "packagesPath": "/home/juliana/.nuget/packages/",
-        "outputPath": "/home/juliana/42-bosh/first_challenge/api1/obj/",
+        "projectPath": "/Users/robson/dev/42/labs/bosch/ben/ben_first_challenge/api1/api1.csproj",
+        "packagesPath": "/Users/robson/.nuget/packages/",
+        "outputPath": "/Users/robson/dev/42/labs/bosch/ben/ben_first_challenge/api1/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/juliana/.nuget/NuGet/NuGet.Config"
+          "/Users/robson/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -52,6 +52,14 @@
               "target": "Package",
               "version": "[7.0.8, )"
             },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.8, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.0, )"
@@ -67,25 +75,10 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.18, 6.0.18]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.linux-x64",
-              "version": "[6.0.18, 6.0.18]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.18, 6.0.18]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -94,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.410/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/Cellar/dotnet@6/6.0.114/libexec/sdk/6.0.114/RuntimeIdentifierGraph.json"
         }
       }
     }
