@@ -164,7 +164,7 @@ db/db1/*
 !db/db1/.*
 
 # SQLite
-*.sqlite
+**.sqlite
 
 # Visual Studio Code
 .vscode
