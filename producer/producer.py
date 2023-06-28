@@ -22,7 +22,7 @@ start = time.time()
 while(True):
     id, infos = randomDataGenerator.generate_random_data()
 
-    compania = json.dumps(infos)
-    producer.send(TOPIC_NAME, key=str(id), value=compania)
-    print(compania)
+    company = json.dumps(infos)
+    producer.send(TOPIC_NAME, key=str(id), value=company)
+    print(company)
     time.sleep(1)

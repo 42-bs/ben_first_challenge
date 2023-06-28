@@ -6,7 +6,7 @@ from datetime import datetime
 # Unidade Consumidora : string
 # Valor : double
 # Data : DateTime
-#long SQL server = -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+# long SQL server = -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 long_min = -9223372036854775808
 long_max = 9223372036854775807
 max_digits_of_consumer_unity = 10
