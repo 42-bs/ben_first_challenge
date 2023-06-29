@@ -2,13 +2,6 @@ import random
 import string
 from datetime import datetime
 
-class EnergyData:
-	def __init__(self, builder):
-		self._id = builder.id()
-		self._consumer_unity = builder.consumer_unity()
-		self._value = builder.value()
-		self._date = builder.date()
-
 class EnergyDataBuilder:
 	def __init__(self,
 		id_list_size = 50,
