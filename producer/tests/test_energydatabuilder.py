@@ -1,6 +1,4 @@
 from srcs.energy_data_builder import EnergyDataBuilder
-from srcs.energy_data_kafka_producer import EnergyDataKafkaProducer
-from kafka.errors import KafkaError
 
 class TestClass:
 	def test_default_id_return(self):
