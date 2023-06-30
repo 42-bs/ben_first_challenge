@@ -12,14 +12,14 @@ services:
     # depends_on:
       # - sqlserver1
 
-  # producer:
-  #   networks:
-  #     - network_ben
-  #   depends_on:
-  #     - kafka
-  #   build:
-  #     context: ./producer
-  #     dockerfile: Dockerfile
+  producer:
+    networks:
+      - network_ben
+    depends_on:
+      - kafka
+    build:
+      context: ./producer
+      dockerfile: Dockerfile
 
   # api1:
   #   networks:

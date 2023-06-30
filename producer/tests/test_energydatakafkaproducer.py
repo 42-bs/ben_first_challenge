@@ -1,4 +1,6 @@
 from srcs.energy_data_kafka_producer import EnergyDataKafkaProducer
+import kafka
+import kafka.errors
 import pytest
 from pytest import mark
 
@@ -12,6 +14,6 @@ class TestClass:
 		serverhost = 'localhost:9092' if localhost == True else 'kafka:9092' 
 		producer = EnergyDataKafkaProducer(server=serverhost)
 		msg = producer.send_through_kafka()
-		with pytest.raises():
-			metadata = msg.get(timeout=11)
+		with pytest.raises(kafka.errors.NotLeaderForPartitionError):
+			metadata = msg.get(timeout=20)
 			assert metadata.topic == 'random_energy_data'
