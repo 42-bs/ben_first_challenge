@@ -1,37 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Confluent.Kafka;
-using Newtonsoft.Json;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿// <copyright file="Consumer.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
-namespace consumer
+namespace Consumer
 {
-	public class InfoContext : DbContext
-	{
-		public DbSet<InfoTable> My_Info_Table { get; set; }
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			optionsBuilder.UseSqlite("Data Source=/db/litedb.sqlite");
-		}
-	}
-	public class InfoTable
-	{
-		[Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
-		public long CompanyId { get; set; }
-		public string? ConsumerUnity { get; set; }
-		public double? Value { get; set; }
-		[Column(TypeName = "DATE")]
-		public DateTime Timestamp { get; set; }
-	}
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Confluent.Kafka;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Consume from kafka and send to the database.
+    /// </summary>
     public class Consumer
     {
-        public static async Task Main(string[] args)
+        /// <summary>
+        /// This main aims to read from a single topic and add to a single table in the database,
+        /// the goal is just to fill the database with lots of information.
+        /// </summary>
+        /// <returns>Represents an asynchonous task operation.</returns>
+        public static async Task Main()
         {
             await Task.Delay(TimeSpan.FromSeconds(10));
 
@@ -42,14 +33,14 @@ namespace consumer
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
-            using var consumer = new ConsumerBuilder<string, Dictionary<string, object>>(config).
-                SetValueDeserializer(new DeserializeDictionary()).Build();
-
+            using var consumer = new ConsumerBuilder<Null, EnergyData>(config).
+                SetValueDeserializer(new EnergyDataDeserializer()).Build();
             {
                 consumer.Subscribe("random_energy_data");
 
                 var cancellationTokenSource = new CancellationTokenSource();
-                Console.CancelKeyPress += (_, e) => {
+                Console.CancelKeyPress += (_, e) =>
+                {
                     e.Cancel = true;
                     cancellationTokenSource.Cancel();
                 };
@@ -63,17 +54,12 @@ namespace consumer
                             var consumerResult = consumer.Consume(cancellationTokenSource.Token);
                             var message = consumerResult.Message;
                             Console.WriteLine($"\nConsumed message at: '{consumerResult.TopicPartitionOffset}'.");
-							using (var db = new InfoContext())
-							{
-								InfoTable infotable = new InfoTable();
-								infotable.CompanyId = long.Parse(message.Key);
-								infotable.ConsumerUnity = message.Value["Consumer Unity"].ToString();
-								infotable.Value = double.Parse(message.Value["Value"].ToString());
-								infotable.Timestamp = DateTime.UnixEpoch.AddSeconds(Convert.ToDouble(message.Value["Timestamp"]));
-								Console.WriteLine(infotable.Timestamp);
-								db.My_Info_Table.Add(infotable);
-								db.SaveChanges();
-							}
+                            using (var db = new EnergyDataDbContext())
+                            {
+                                EnergyData energyData = message.Value;
+                                db.My_Info_Table.Add(energyData);
+                                db.SaveChanges();
+                            }
                         }
                         catch (ConsumeException e)
                         {
@@ -85,22 +71,6 @@ namespace consumer
                 {
                     consumer.Close();
                 }
-            }
-        }
-
-        public class DeserializeDictionary : IDeserializer<Dictionary<string, object>>
-        {
-            public Dictionary<string, object> Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
-            {
-                if (isNull)
-                {
-                    return null;
-                }
-
-                var jsonString = Encoding.UTF8.GetString(data).Trim('"').Replace("\\\"", "\"");
-                Dictionary<string, object> ?dict = JsonConvert.DeserializeObject<Dictionary<string,object>>(jsonString);
-
-                return dict;
             }
         }
     }
