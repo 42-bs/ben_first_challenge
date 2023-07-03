@@ -33,8 +33,18 @@ namespace Consumer
 
             var jsonString = Encoding.UTF8.GetString(data).Trim('"').Replace("\\\"", "\"");
             Dictionary<string, object>? dict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonString);
-
+            EnergyData energyData = new ()
+            {
+                CompanyId = long.Parse(dict["id"].ToString()),
+                ConsumerUnity = dict["consumer_unity"].ToString(),
+                Value = double.Parse(dict["value"].ToString()),
+                Timestamp = DateTime.UnixEpoch.AddSeconds(Convert.ToDouble(dict["date"]))
+            };
+            Console.WriteLine(energyData.CompanyId);
+            Console.WriteLine(energyData.ConsumerUnity);
+            Console.WriteLine(energyData.Value);
+            Console.WriteLine(energyData.Timestamp);
             return new EnergyData();
-        }
+    }
     }
 }

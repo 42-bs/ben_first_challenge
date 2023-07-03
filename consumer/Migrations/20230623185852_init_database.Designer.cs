@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using consumer;
+using Consumer;
 
 #nullable disable
 
 namespace Consumer.Migrations
 {
-    [DbContext(typeof(InfoContext))]
+    [DbContext(typeof(EnergyData))]
     [Migration("20230623185852_init_database")]
     partial class init_database
     {

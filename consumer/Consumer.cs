@@ -29,7 +29,7 @@ namespace Consumer
             var config = new ConsumerConfig
             {
                 GroupId = "test-consumer",
-                BootstrapServers = "kafka:9092",
+                BootstrapServers = "localhost:9092",
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
@@ -54,12 +54,13 @@ namespace Consumer
                             var consumerResult = consumer.Consume(cancellationTokenSource.Token);
                             var message = consumerResult.Message;
                             Console.WriteLine($"\nConsumed message at: '{consumerResult.TopicPartitionOffset}'.");
-                            using (var db = new EnergyDataDbContext())
-                            {
-                                EnergyData energyData = message.Value;
-                                db.My_Info_Table.Add(energyData);
-                                db.SaveChanges();
-                            }
+
+                            // using (var db = new EnergyDataDbContext())
+                            // {
+                            //    EnergyData energyData = message.Value;
+                            //    db.My_Info_Table.Add(energyData);
+                            //    db.SaveChanges();
+                            // }
                         }
                         catch (ConsumeException e)
                         {

@@ -3,13 +3,13 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using consumer;
+using Consumer;
 
 #nullable disable
 
 namespace Consumer.Migrations
 {
-    [DbContext(typeof(InfoContext))]
+    [DbContext(typeof(EnergyData))]
     partial class InfoContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
