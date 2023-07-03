@@ -22,7 +22,12 @@ namespace Consumer
         /// <summary>
         /// Gets or Sets Get any text here.
         /// </summary>
-        public long CompanyId { get; set; }
+        public CompanyIdData CompanyIdData { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Get ForeinKey.
+        /// </summary>
+        public int CompanyIdDataFK { get; set; }
 
         /// <summary>
         /// Gets or Sets Get any text here.

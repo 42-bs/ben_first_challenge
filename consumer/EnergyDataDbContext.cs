@@ -16,14 +16,20 @@ namespace Consumer
         /// </summary>
         public DbSet<EnergyData> My_Info_Table { get; set; }
 
-        /// <summary>
-        /// Enter description for method SomeMethod.
-        /// ID string generated is "M:MyNamespace.MyClass.SomeMethod(System.String,System.Int32@,System.Void*)".
-        /// </summary>
-        /// <param name="optionsBuilder">Describe parameter.</param>
+        /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=/db/litedb.sqlite");
+        }
+
+        /// <inheritdoc/>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CompanyIdData>()
+                .HasMany(e => e.EnergyDatas)
+                .WithOne(e => e.CompanyIdData)
+                .HasForeignKey(e => e.CompanyIdDataFK)
+                .HasPrincipalKey(e => e.Id);
         }
     }
 }

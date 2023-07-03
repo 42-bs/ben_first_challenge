@@ -34,8 +34,8 @@ namespace Consumer
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
-            using var consumer = new ConsumerBuilder<Null, EnergyData>(config).
-                SetValueDeserializer(new EnergyDataDeserializer()).Build();
+            using var consumer = new ConsumerBuilder<Null, ReceivedMessage>(config).
+                SetValueDeserializer(new ReceivedMessageDeserializer()).Build();
             {
                 consumer.Subscribe("random_energy_data");
 
@@ -56,12 +56,20 @@ namespace Consumer
                             var message = consumerResult.Message;
                             Console.WriteLine($"\nConsumed message at: '{consumerResult.TopicPartitionOffset}'.");
 
-                            // using (var db = new EnergyDataDbContext())
-                            // {
-                            //    EnergyData energyData = message.Value;
-                            //    db.My_Info_Table.Add(energyData);
-                            //    db.SaveChanges();
-                            // }
+                            using (var db = new EnergyDataDbContext())
+                            {
+                                ReceivedMessage receivedMessage = message.Value;
+                                EnergyData energyData = new EnergyData()
+                                {
+                                    CompanyIdData = new CompanyIdData() { CompanyId = receivedMessage.CompanyId },
+                                    ConsumerUnity = receivedMessage.ConsumerUnity,
+                                    Value = receivedMessage.Value,
+                                    Timestamp = receivedMessage.Timestamp
+                                };
+
+                                db.My_Info_Table.Add(energyData);
+                                db.SaveChanges();
+                            }
                         }
                         catch (ConsumeException e)
                         {
