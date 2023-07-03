@@ -10,6 +10,7 @@ namespace Consumer
     using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
+    using DotNetEnv;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -25,11 +26,11 @@ namespace Consumer
         public static async Task Main()
         {
             await Task.Delay(TimeSpan.FromSeconds(10));
-
+            Env.Load();
             var config = new ConsumerConfig
             {
                 GroupId = "test-consumer",
-                BootstrapServers = "localhost:9092",
+                BootstrapServers = Env.GetString("KAFKA_HOST"),
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
