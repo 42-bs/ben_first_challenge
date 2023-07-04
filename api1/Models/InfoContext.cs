@@ -1,17 +1,26 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-
-namespace api1.Models;
-
-public class InfoContext : DbContext
+namespace Api1.Models
 {
-	public DbSet<InfoTable> Company_Energy_Data { get; set; }
-	// protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-	// {
-	// 	optionsBuilder.UseSqlite("Data Source=../consumer/litedb.sqlite");
-	// }
-	public InfoContext(DbContextOptions<InfoContext> options)
-            : base(options)
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+
+    /// <summary>
+    /// .
+    /// </summary>
+    public class InfoContext : DbContext
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InfoContext"/> class.
+        /// </summary>
+        /// <param name="options">c.</param>
+        public InfoContext(DbContextOptions<InfoContext> options)
+                : base(options)
         {
+            // nothing.
         }
+
+        /// <summary>
+        /// Gets or sets .
+        /// </summary>
+        public DbSet<InfoTable> Company_Energy_Data { get; set; }
+    }
 }

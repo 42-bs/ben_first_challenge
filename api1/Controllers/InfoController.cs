@@ -1,37 +1,53 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using api1.Models;
-
-namespace api1.Controllers
+namespace Api1.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Api1.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
+    /// <summary>
+    /// .
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class InfoController : ControllerBase
     {
-        private readonly InfoContext _context;
+        private readonly InfoContext context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InfoController"/> class.
+        /// .
+        /// </summary>
+        /// <param name="context">cavalinho.</param>
         public InfoController(InfoContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
+        /// <summary>
+        /// .
+        /// </summary>
+        /// <returns>c.</returns>
         // GET: api/Info
         [HttpGet]
         public async Task<ActionResult<IEnumerable<InfoTable>>> GetCompany_Energy_Data()
         {
-            return await _context.Company_Energy_Data.ToListAsync();
+            return await context.Company_Energy_Data.ToListAsync();
         }
 
+        /// <summary>
+        /// .
+        /// </summary>
+        /// <param name="id">c.</param>
+        /// <returns>C.</returns>
         // GET: api/Info/5
         [HttpGet("{id}")]
         public async Task<ActionResult<InfoTable>> GetInfoTable(int id)
         {
-            var infoTable = await _context.Company_Energy_Data.FindAsync(id);
+            var infoTable = await context.Company_Energy_Data.FindAsync(id);
 
             if (infoTable == null)
             {
@@ -50,9 +66,7 @@ namespace api1.Controllers
         //     {
         //         return BadRequest();
         //     }
-
         //     _context.Entry(infoTable).State = EntityState.Modified;
-
         //     try
         //     {
         //         await _context.SaveChangesAsync();
@@ -68,7 +82,6 @@ namespace api1.Controllers
         //             throw;
         //         }
         //     }
-
         //     return NoContent();
         // }
 
@@ -79,7 +92,6 @@ namespace api1.Controllers
         // {
         //     _context.My_Info_Table.Add(infoTable);
         //     await _context.SaveChangesAsync();
-
         //     return CreatedAtAction("GetInfoTable", new { id = infoTable.Id }, infoTable);
         // }
 
@@ -92,16 +104,13 @@ namespace api1.Controllers
         //     {
         //         return NotFound();
         //     }
-
         //     _context.My_Info_Table.Remove(infoTable);
         //     await _context.SaveChangesAsync();
-
         //     return NoContent();
         // }
-
         private bool InfoTableExists(int id)
         {
-            return _context.Company_Energy_Data.Any(e => e.Id == id);
+            return context.Company_Energy_Data.Any(e => e.Id == id);
         }
     }
 }

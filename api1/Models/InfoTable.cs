@@ -1,10 +1,33 @@
-namespace api1.Models;
+namespace Api1.Models
+{
+    /// <summary>
+    /// .
+    /// </summary>
+    public class InfoTable
+    {
+        /// <summary>
+        /// Gets or sets .
+        /// </summary>
+        public int Id { get; set; }
 
-public class InfoTable
-	{
-		public int Id { get; set; }
-		public long CompanyId { get; set; }
-		public string? ConsumerUnity { get; set; }
-		public double? Value { get; set; }
-		public DateTime Timestamp { get; set; }
-	}
+        /// <summary>
+        /// Gets or sets .
+        /// </summary>
+        public long CompanyId { get; set; }
+
+        /// <summary>
+        /// Gets or sets .
+        /// </summary>
+        public string? ConsumerUnity { get; set; }
+
+        /// <summary>
+        /// Gets or sets .
+        /// </summary>
+        public double? Value { get; set; }
+
+        /// <summary>
+        /// Gets or sets .
+        /// </summary>
+        public DateTime Timestamp { get; set; }
+    }
+}
