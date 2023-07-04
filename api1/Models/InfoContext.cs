@@ -5,7 +5,7 @@ namespace api1.Models;
 
 public class InfoContext : DbContext
 {
-	public DbSet<InfoTable> My_Info_Table { get; set; }
+	public DbSet<InfoTable> Company_Energy_Data { get; set; }
 	// protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	// {
 	// 	optionsBuilder.UseSqlite("Data Source=../consumer/litedb.sqlite");

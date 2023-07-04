@@ -23,18 +23,22 @@ services:
       context: ./producer
       dockerfile: Dockerfile
 
-  # api1:
-  #   networks:
-  #     - network_ben
-  #   depends_on:
-  #     - consumer
-  #   build:
-  #     context: ./api1
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "5002:80"
-  #   volumes:
-  #     - ./db/sqlite/:/app/db/
+  api1:
+    networks:
+      - network_ben
+    depends_on:
+      - consumer
+    environment:
+      DB_SERVER: ${DOCKER_DB1_MSSQL_HOST}
+      DB_USER: ${DB1_MSSQL_USER}
+      DB_PASS: ${DB1_MSSQL_SA_PASSWORD}
+    build:
+      context: ./api1
+      dockerfile: Dockerfile
+    ports:
+      - "5002:80"
+    # volumes:
+    #   - ./db/sqlite/:/app/db/
 
   consumer:
     networks:

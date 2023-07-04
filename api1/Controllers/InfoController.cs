@@ -22,16 +22,16 @@ namespace api1.Controllers
 
         // GET: api/Info
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<InfoTable>>> GetMy_Info_Table()
+        public async Task<ActionResult<IEnumerable<InfoTable>>> GetCompany_Energy_Data()
         {
-            return await _context.My_Info_Table.ToListAsync();
+            return await _context.Company_Energy_Data.ToListAsync();
         }
 
         // GET: api/Info/5
         [HttpGet("{id}")]
         public async Task<ActionResult<InfoTable>> GetInfoTable(int id)
         {
-            var infoTable = await _context.My_Info_Table.FindAsync(id);
+            var infoTable = await _context.Company_Energy_Data.FindAsync(id);
 
             if (infoTable == null)
             {
@@ -101,7 +101,7 @@ namespace api1.Controllers
 
         private bool InfoTableExists(int id)
         {
-            return _context.My_Info_Table.Any(e => e.Id == id);
+            return _context.Company_Energy_Data.Any(e => e.Id == id);
         }
     }
 }
