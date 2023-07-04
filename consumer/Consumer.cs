@@ -34,8 +34,8 @@ namespace Consumer
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
-            using var consumer = new ConsumerBuilder<Null, ReceivedMessage>(config).
-                SetValueDeserializer(new ReceivedMessageDeserializer()).Build();
+            using var consumer = new ConsumerBuilder<Null, EnergyData>(config).
+                SetValueDeserializer(new EnergyDataDeserializer()).Build();
             {
                 consumer.Subscribe("random_energy_data");
 
@@ -58,15 +58,7 @@ namespace Consumer
 
                             using (var db = new EnergyDataDbContext())
                             {
-                                ReceivedMessage receivedMessage = message.Value;
-                                EnergyData energyData = new EnergyData()
-                                {
-                                    CompanyIdData = new CompanyIdData() { CompanyId = receivedMessage.CompanyId },
-                                    ConsumerUnity = receivedMessage.ConsumerUnity,
-                                    Value = receivedMessage.Value,
-                                    Timestamp = receivedMessage.Timestamp
-                                };
-
+                                EnergyData energyData = message.Value;
                                 db.My_Info_Table.Add(energyData);
                                 db.SaveChanges();
                             }
