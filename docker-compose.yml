@@ -45,6 +45,9 @@ services:
     #   - ./db/sqlite/:/db/
     environment:
       KAFKA_HOST: "kafka:9092"
+      DB_SERVER: ${DOCKER_DB1_MSSQL_HOST}
+      DB_USER: ${DB1_MSSQL_USER}
+      DB_PASS: ${DB1_MSSQL_SA_PASSWORD}
     build:
       context: ./consumer
       dockerfile: Dockerfile
