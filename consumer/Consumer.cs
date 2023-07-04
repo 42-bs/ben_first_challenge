@@ -34,9 +34,10 @@ namespace Consumer
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
-            using var consumer = new ConsumerBuilder<Null, EnergyData>(config).
+            using var consumer = new ConsumerBuilder<Ignore, EnergyData>(config).
                 SetValueDeserializer(new EnergyDataDeserializer()).Build();
             {
+                Console.WriteLine(consumer);
                 consumer.Subscribe("random_energy_data");
 
                 var cancellationTokenSource = new CancellationTokenSource();
@@ -59,7 +60,7 @@ namespace Consumer
                             using (var db = new EnergyDataDbContext())
                             {
                                 EnergyData energyData = message.Value;
-                                db.My_Info_Table.Add(energyData);
+                                db.Company_Energy_Data.Add(energyData);
                                 db.SaveChanges();
                             }
                         }

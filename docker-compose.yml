@@ -15,6 +15,8 @@ services:
   producer:
     networks:
       - network_ben
+    environment:
+      KAFKA_HOST: "kafka:9092"
     depends_on:
       - kafka
     build:
@@ -34,32 +36,34 @@ services:
   #   volumes:
   #     - ./db/sqlite/:/app/db/
 
-  # consumer:
-  #   networks:
-  #     - network_ben
-  #   depends_on:
-  #     - producer
-  #   volumes:
-  #     - ./db/sqlite/:/db/
-  #   build:
-  #     context: ./consumer
-  #     dockerfile: Dockerfile
-  #   command: >
-  #     sh -c "dotnet ef database update && dotnet run"
+  consumer:
+    networks:
+      - network_ben
+    depends_on:
+      - producer
+    # volumes:
+    #   - ./db/sqlite/:/db/
+    environment:
+      KAFKA_HOST: "kafka:9092"
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    command: >
+      sh -c "dotnet ef database update && dotnet run"
     # - sqlite_volume:/appcsharp
 
-  # sqlserver1:
-  #   image: mcr.microsoft.com/mssql/server:2022-latest
-  #   networks:
-  #     - network_ben
-  #   environment:
-  #     ACCEPT_EULA: ${DB1_ACCEPT_EULA}
-  #     MSSQL_SA_PASSWORD: ${DB1_MSSQL_SA_PASSWORD}
-  #     MSSQL_PID: ${DB1_MSSQL_PID}
-  #   ports:
-  #     - "1433:1433"
-  #   volumes:
-  #     - ./db/db1:/var/opt/mssql/data
+  sqlserver1:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      - network_ben
+    environment:
+      ACCEPT_EULA: ${DB1_ACCEPT_EULA}
+      MSSQL_SA_PASSWORD: ${DB1_MSSQL_SA_PASSWORD}
+      MSSQL_PID: ${DB1_MSSQL_PID}
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./db/db1:/var/opt/mssql/data
 
 networks:
   network_ben:

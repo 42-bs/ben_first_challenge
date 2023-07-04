@@ -8,7 +8,7 @@ import os
 if __name__ == "__main__":
 	serverhost = os.getenv("KAFKA_HOST")
 	print(serverhost)
-	producer = EnergyDataKafkaProducer(server=serverhost)
+	producer = EnergyDataKafkaProducer(server=serverhost, retry_limit=50)
 	while (True):
 		print("sending")
 		producer.send_through_kafka()

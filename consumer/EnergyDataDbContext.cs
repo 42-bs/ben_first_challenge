@@ -14,13 +14,14 @@ namespace Consumer
         /// <summary>
         /// Gets or Sets Get any text here.
         /// </summary>
-        public DbSet<EnergyData> My_Info_Table { get; set; }
+        public DbSet<EnergyData> Company_Energy_Data { get; set; }
 
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=/db/litedb.sqlite");
+            // optionsBuilder.UseSqlite("Data Source=/db/litedb.sqlite");
+            // optionsBuilder.UseSqlServer(@"Server=localhost;Database=Ben; User Id=SA; Password=Bosch42$;TrustServerCertificate=true");
+			optionsBuilder.UseSqlServer(@"Server=sqlserver1;Database=Ben; User Id=SA; Password=Bosch42$;TrustServerCertificate=true");
         }
-
     }
 }

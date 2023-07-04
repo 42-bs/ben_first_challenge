@@ -48,7 +48,7 @@ class EnergyDataKafkaProducer:
 				producer = KafkaProducer(bootstrap_servers=self._server)
 				return producer
 			except:
-				time.sleep(1)
+				time.sleep(10)
 				self._retry_limit -= 1
 		raise ConnectionError
 
