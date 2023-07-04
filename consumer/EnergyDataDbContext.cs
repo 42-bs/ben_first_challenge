@@ -22,14 +22,5 @@ namespace Consumer
             optionsBuilder.UseSqlite("Data Source=/db/litedb.sqlite");
         }
 
-        /// <inheritdoc/>
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<CompanyIdData>()
-                .HasMany(e => e.EnergyDatas)
-                .WithOne(e => e.CompanyIdData)
-                .HasForeignKey(e => e.CompanyIdDataFK)
-                .HasPrincipalKey(e => e.Id);
-        }
     }
 }
