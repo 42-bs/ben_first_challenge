@@ -37,7 +37,6 @@ namespace Consumer
         /// <summary>
         /// Gets or Sets Get any text here.
         /// </summary>
-        [Column(TypeName = "DATE")]
         public DateTime Timestamp { get; set; }
     }
 }
