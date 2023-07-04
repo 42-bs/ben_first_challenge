@@ -6,7 +6,7 @@ services:
       - network_ben
     image: docker.io/bitnami/kafka:3.4
     ports:
-      - "9092"
+      - "9092:9092"
     environment:
       - ALLOW_PLAINTEXT_LISTENER=yes
     # depends_on:
@@ -15,6 +15,8 @@ services:
   producer:
     networks:
       - network_ben
+    environment:
+      KAFKA_HOST: "kafka:9092"
     depends_on:
       - kafka
     build:
@@ -26,21 +28,30 @@ services:
       - network_ben
     depends_on:
       - consumer
+    environment:
+      DB_SERVER: ${DOCKER_DB1_MSSQL_HOST}
+      DB_USER: ${DB1_MSSQL_USER}
+      DB_PASS: ${DB1_MSSQL_SA_PASSWORD}
     build:
       context: ./api1
       dockerfile: Dockerfile
     ports:
       - "5002:80"
-    volumes:
-      - ./db/sqlite/:/app/db/
+    # volumes:
+    #   - ./db/sqlite/:/app/db/
 
   consumer:
     networks:
       - network_ben
     depends_on:
       - producer
-    volumes:
-      - ./db/sqlite/:/db/
+    # volumes:
+    #   - ./db/sqlite/:/db/
+    environment:
+      KAFKA_HOST: "kafka:9092"
+      DB_SERVER: ${DOCKER_DB1_MSSQL_HOST}
+      DB_USER: ${DB1_MSSQL_USER}
+      DB_PASS: ${DB1_MSSQL_SA_PASSWORD}
     build:
       context: ./consumer
       dockerfile: Dockerfile
@@ -48,26 +59,26 @@ services:
       sh -c "dotnet ef database update && dotnet run"
     # - sqlite_volume:/appcsharp
 
-  # sqlserver1:
-  #   image: mcr.microsoft.com/mssql/server:2022-latest
-  #   networks:
-  #     - network_ben
-  #   environment:
-  #     ACCEPT_EULA: ${DB1_ACCEPT_EULA}
-  #     MSSQL_SA_PASSWORD: ${DB1_MSSQL_SA_PASSWORD}
-  #     MSSQL_PID: ${DB1_MSSQL_PID}
-  #   ports:
-  #     - "1433:1433"
-  #   volumes:
-  #     - ./db/db1:/var/opt/mssql/data
+  sqlserver1:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      - network_ben
+    environment:
+      ACCEPT_EULA: ${DB1_ACCEPT_EULA}
+      MSSQL_SA_PASSWORD: ${DB1_MSSQL_SA_PASSWORD}
+      MSSQL_PID: ${DB1_MSSQL_PID}
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./db/db1:/var/opt/mssql/data
 
 networks:
   network_ben:
     driver: bridge
 
-volumes:
-  sqlite_volume:
-    driver_opts:
-      o: bind
-      type: none
-      device: ./sqlite
+# volumes:
+#   sqlite_volume:
+#     driver_opts:
+#       o: bind
+#       type: none
+#       device: ./sqlite
