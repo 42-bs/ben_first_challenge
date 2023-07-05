@@ -11,7 +11,7 @@ namespace Api1.Controllers
     /// <summary>
     /// Represents a controller for retrieving information from the API.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/energy_data")]
     [ApiController]
     public class EnergyDataController : ControllerBase
     {
