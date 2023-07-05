@@ -13,29 +13,29 @@ namespace Consumer
     public class EnergyData
     {
         /// <summary>
-        /// Gets or Sets Get any text here.
+        /// Gets or Sets Primary Key.
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets Get any text here.
+        /// Gets or Sets Representation of CompanyID as long.
         /// </summary>
         public long CompanyId { get; set; }
 
         /// <summary>
-        /// Gets or Sets Get any text here.
+        /// Gets or Sets Representation of Consumer Unity as string.
         /// </summary>
         public string? ConsumerUnity { get; set; }
 
         /// <summary>
-        /// Gets or Sets Get any text here.
+        /// Gets or Sets Representation of cost Value as double.
         /// </summary>
         public double? Value { get; set; }
 
         /// <summary>
-        /// Gets or Sets Get any text here.
+        /// Gets or Sets Representation of date as DateTime.
         /// </summary>
         public DateTime Timestamp { get; set; }
     }
