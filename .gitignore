@@ -163,6 +163,10 @@ cython_debug/
 db/db1/*
 !db/db1/.*
 
+# MSSQL DB2 Data
+**/db/db2/*
+!**/db/db2/.*
+
 # SQLite
 **.sqlite
 
@@ -207,3 +211,4 @@ msbuild.err
 msbuild.wrn
 consumer/dotnet-ef
 consumer/.store/
+**/cavalito
