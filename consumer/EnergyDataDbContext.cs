@@ -20,7 +20,13 @@ namespace Consumer
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server="+Env.GetString("DB_SERVER") + ";Database=Ben; User Id="+Env.GetString("DB_USER") + "; Password="+Env.GetString("DB_PASS") + ";TrustServerCertificate=true");
+            optionsBuilder.UseSqlServer(@"Server=" +
+                        Env.GetString("DB_SERVER") +
+                        ";Database=Ben; User Id=" +
+                        Env.GetString("DB_USER") +
+                        "; Password=" +
+                        Env.GetString("DB_PASS") +
+                        ";TrustServerCertificate=true");
         }
     }
 }

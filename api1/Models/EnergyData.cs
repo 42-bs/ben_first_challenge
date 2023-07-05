@@ -1,4 +1,4 @@
-// <copyright file="InfoTable.cs" company="PlaceholderCompany">
+// <copyright file="EnergyData.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -7,7 +7,7 @@ namespace Api1.Models
     /// <summary>
     /// This class get data received from Database to Api1 Schema.
     /// </summary>
-    public class InfoTable
+    public class EnergyData
     {
         /// <summary>
         /// Gets or Sets Primary Key.

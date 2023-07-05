@@ -1,4 +1,4 @@
-// <copyright file="InfoContext.cs" company="PlaceholderCompany">
+// <copyright file="EnergyDataDbContext.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -10,22 +10,20 @@ namespace Api1.Models
     /// <summary>
     /// Define the context of the database and the table for EnergyData model and specify the db provider configuration.
     /// </summary>
-    public class InfoContext : DbContext
+    public class EnergyDataDbContext : DbContext
     {
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="InfoContext"/> class.
+        /// Initializes a new instance of the <see cref="EnergyDataDbContext"/> class.
         /// </summary>
         /// <param name="options">Start point of all DbContext configuration.</param>
-        public InfoContext(DbContextOptions<InfoContext> options)
+        public EnergyDataDbContext(DbContextOptions<EnergyDataDbContext> options)
                 : base(options)
         {
-            // nothing.
         }
 
         /// <summary>
-        /// Gets or Sets Representation of InfoTable Entity.
+        /// Gets or Sets Representation of EnergyData Entity.
         /// </summary>
-        public DbSet<InfoTable> Company_Energy_Data { get; set; }
+        public DbSet<EnergyData> Company_Energy_Data { get; set; }
     }
 }
