@@ -12,6 +12,8 @@ namespace Consumer
     using Confluent.Kafka;
     using Newtonsoft.Json;
 
+#nullable disable
+
     /// <summary>
     /// Custom deserializer class for consumer.
     /// </summary>
@@ -33,7 +35,7 @@ namespace Consumer
 
             var jsonString = Encoding.UTF8.GetString(data).Trim('"').Replace("\\\"", "\"");
             Console.WriteLine(jsonString);
-            Dictionary<string, object>? dict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonString);
+            Dictionary<string, object> dict = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonString);
             EnergyData energyData = new EnergyData()
             {
                 CompanyId = long.Parse(dict["id"].ToString()),

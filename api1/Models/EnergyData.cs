@@ -1,41 +1,36 @@
-﻿// <copyright file="EnergyData.cs" company="PlaceholderCompany">
+// <copyright file="EnergyData.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Consumer
+namespace Api1.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     /// <summary>
-    /// This class get data received from Kafka and convert to Database schema.
+    /// This class get data received from Database to Api1 Schema.
     /// </summary>
     public class EnergyData
     {
         /// <summary>
         /// Gets or Sets Primary Key.
         /// </summary>
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets Representation of CompanyID as long.
+        /// Gets or sets Representation of CompanyID as long.
         /// </summary>
         public long CompanyId { get; set; }
 
         /// <summary>
-        /// Gets or Sets Representation of Consumer Unity as string.
+        /// Gets or sets Representation of Consumer Unity as string.
         /// </summary>
         public string? ConsumerUnity { get; set; }
 
         /// <summary>
-        /// Gets or Sets Representation of cost Value as double.
+        /// Gets or sets Representation of cost Value as double.
         /// </summary>
         public double? Value { get; set; }
 
         /// <summary>
-        /// Gets or Sets Representation of date as DateTime.
+        /// Gets or sets Representation of date as DateTime.
         /// </summary>
         public DateTime Timestamp { get; set; }
     }
