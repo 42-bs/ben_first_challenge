@@ -25,9 +25,9 @@ services:
       MSSQL_SA_PASSWORD: ${DB2_MSSQL_SA_PASSWORD}
       MSSQL_PID: ${DB2_MSSQL_PID}
     ports:
-      - "1433:1433"
+      - "1434:1433"
     volumes:
-      - ./db/db2:/var/opt/mssql/data
+      - ../db/db2:/var/opt/mssql/data
 
 networks:
   network_api2:

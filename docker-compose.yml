@@ -1,33 +1,33 @@
 version: '3'
 
 services:
-  kafka:
-    networks:
-      - network_ben
-    image: docker.io/bitnami/kafka:3.4
-    ports:
-      - "9092:9092"
-    environment:
-      - ALLOW_PLAINTEXT_LISTENER=yes
-    # depends_on:
-      # - sqlserver1
+  # kafka:
+  #   networks:
+  #     - network_ben
+  #   image: docker.io/bitnami/kafka:3.4
+  #   ports:
+  #     - "9092:9092"
+  #   environment:
+  #     - ALLOW_PLAINTEXT_LISTENER=yes
+  #   depends_on:
+  #     - sqlserver1
 
-  producer:
-    networks:
-      - network_ben
-    environment:
-      KAFKA_HOST: "kafka:9092"
-    depends_on:
-      - kafka
-    build:
-      context: ./producer
-      dockerfile: Dockerfile
+  # producer:
+  #   networks:
+  #     - network_ben
+  #   environment:
+  #     KAFKA_HOST: "kafka:9092"
+  #   depends_on:
+  #     - kafka
+  #   build:
+  #     context: ./producer
+  #     dockerfile: Dockerfile
 
   api1:
     networks:
       - network_ben
-    depends_on:
-      - consumer
+    # depends_on:
+    #   - consumer
     environment:
       DB_SERVER: ${DOCKER_DB1_MSSQL_HOST}
       DB_USER: ${DB1_MSSQL_USER}
@@ -38,21 +38,21 @@ services:
     ports:
       - "5002:80"
 
-  consumer:
-    networks:
-      - network_ben
-    depends_on:
-      - producer
-    environment:
-      KAFKA_HOST: "kafka:9092"
-      DB_SERVER: ${DOCKER_DB1_MSSQL_HOST}
-      DB_USER: ${DB1_MSSQL_USER}
-      DB_PASS: ${DB1_MSSQL_SA_PASSWORD}
-    build:
-      context: ./consumer
-      dockerfile: Dockerfile
-    command: >
-      sh -c "dotnet ef database update && dotnet run"
+  # consumer:
+  #   networks:
+  #     - network_ben
+  #   depends_on:
+  #     - producer
+  #   environment:
+  #     KAFKA_HOST: "kafka:9092"
+  #     DB_SERVER: ${DOCKER_DB1_MSSQL_HOST}
+  #     DB_USER: ${DB1_MSSQL_USER}
+    #   DB_PASS: ${DB1_MSSQL_SA_PASSWORD}
+    # build:
+    #   context: ./consumer
+    #   dockerfile: Dockerfile
+    # command: >
+    #   sh -c "dotnet ef database update && dotnet run"
 
   sqlserver1:
     image: mcr.microsoft.com/mssql/server:2022-latest

@@ -6,7 +6,7 @@ import os
 username = os.getenv('DB_USER')
 password = os.getenv('DB_PASS')
 server = os.getenv('DB_SERVER')
-connection_string = 'mssql+pymssql://SA:Bosch42$@localhost:1433/Cavalito'
+connection_string = 'mssql+pymssql://SA:Bosch42$@localhost:1434/Ben'
 engine = create_engine(connection_string)
 
 if not database_exists(engine.url):
