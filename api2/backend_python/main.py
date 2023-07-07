@@ -5,9 +5,9 @@ import crud, models, schemas
 # from crud import create_data_energy
 # from .models import DataEnergy
 # from .schemas import EnergyDataCreate
-from .db import SessionLocal, engine
+from db import SessionLocal, engine
 
-models.Base.metadata.create_all(bind=engine)
+models.DataEnergy.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
