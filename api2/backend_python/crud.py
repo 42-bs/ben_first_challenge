@@ -21,6 +21,8 @@ def energy_data_deserializer():
 		print(datetime.datetime.utcnow)
 		print(type(datetime.datetime.utcnow))
 		energy_data_list.append(energy_data)
+		print(type(datetime.datetime.now().timestamp()))
+		print(datetime.datetime.now().timestamp())
 		# 	company_id=energy_data['companyId'],
 		# 	consumer_unity=energy_data['consumerUnity'],
 		# 	value=energy_data['value'],

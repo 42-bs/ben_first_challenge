@@ -32,9 +32,9 @@ namespace Api1.Controllers
         /// <returns>A collection of company energy data.</returns>
         // GET: api/Info
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EnergyData>>> GetCompany_Energy_Data()
+        public async Task<ActionResult<IEnumerable<EnergyData>>> GetCompanyEnergyData()
         {
-            return await context.Company_Energy_Data.ToListAsync();
+            return await context.CompanyEnergyData.ToListAsync();
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Api1.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<EnergyData>> GetEnergyData(int id)
         {
-            var energyData = await context.Company_Energy_Data.FindAsync(id);
+            var energyData = await context.CompanyEnergyData.FindAsync(id);
 
             if (energyData == null)
             {
@@ -63,7 +63,7 @@ namespace Api1.Controllers
         /// <returns>True if an energyData table with the specified ID exists; otherwise, false.</returns>
         private bool EnergyDataExists(int id)
         {
-            return context.Company_Energy_Data.Any(e => e.Id == id);
+            return context.CompanyEnergyData.Any(e => e.Id == id);
         }
     }
 }

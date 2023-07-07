@@ -37,7 +37,6 @@ namespace Consumer
             using var consumer = new ConsumerBuilder<Ignore, EnergyData>(config).
                 SetValueDeserializer(new EnergyDataDeserializer()).Build();
             {
-                Console.WriteLine(consumer);
                 consumer.Subscribe("random_energy_data");
 
                 var cancellationTokenSource = new CancellationTokenSource();
@@ -55,12 +54,12 @@ namespace Consumer
                         {
                             var consumerResult = consumer.Consume(cancellationTokenSource.Token);
                             var message = consumerResult.Message;
-                            Console.WriteLine($"\nConsumed message at: '{consumerResult.TopicPartitionOffset}'.");
 
+                            // Console.WriteLine($"\nConsumed message at: '{consumerResult.TopicPartitionOffset}'.");
                             using (var db = new EnergyDataDbContext())
                             {
                                 EnergyData energyData = message.Value;
-                                db.Company_Energy_Data.Add(energyData);
+                                db.CompanyEnergyData.Add(energyData);
                                 db.SaveChanges();
                             }
                         }

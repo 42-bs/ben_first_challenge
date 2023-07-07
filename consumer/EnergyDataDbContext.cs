@@ -15,7 +15,7 @@ namespace Consumer
         /// <summary>
         /// Gets or Sets Representation of EnergyData Entity.
         /// </summary>
-        public DbSet<EnergyData> Company_Energy_Data { get; set; }
+        public DbSet<EnergyData> CompanyEnergyData { get; set; }
 
         /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

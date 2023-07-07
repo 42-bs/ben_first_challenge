@@ -36,15 +36,15 @@ namespace Consumer.Migrations
                     b.Property<string>("ConsumerUnity")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("DATE");
+                    b.Property<double?>("Timestamp")
+                        .HasColumnType("float");
 
                     b.Property<double?>("Value")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Company_Energy_Data");
+                    b.ToTable("CompanyEnergyData");
                 });
 #pragma warning restore 612, 618
         }
