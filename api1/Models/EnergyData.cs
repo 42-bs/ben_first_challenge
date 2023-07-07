@@ -30,8 +30,8 @@ namespace Api1.Models
         public double? Value { get; set; }
 
         /// <summary>
-        /// Gets or sets Representation of date as DateTime.
+        /// Gets or sets Representation of date timestamp as double.
         /// </summary>
-        public DateTime Timestamp { get; set; }
+        public double? Timestamp { get; set; }
     }
 }

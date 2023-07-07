@@ -9,8 +9,8 @@ services:
       - "9092:9092"
     environment:
       - ALLOW_PLAINTEXT_LISTENER=yes
-    # depends_on:
-      # - sqlserver1
+    depends_on:
+      - sqlserver1
 
   producer:
     networks:
@@ -37,16 +37,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5002:80"
-    # volumes:
-    #   - ./db/sqlite/:/app/db/
 
   consumer:
     networks:
       - network_ben
     depends_on:
       - producer
-    # volumes:
-    #   - ./db/sqlite/:/db/
     environment:
       KAFKA_HOST: "kafka:9092"
       DB_SERVER: ${DOCKER_DB1_MSSQL_HOST}
@@ -57,7 +53,6 @@ services:
       dockerfile: Dockerfile
     command: >
       sh -c "dotnet ef database update && dotnet run"
-    # - sqlite_volume:/appcsharp
 
   sqlserver1:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -75,10 +70,3 @@ services:
 networks:
   network_ben:
     driver: bridge
-
-# volumes:
-#   sqlite_volume:
-#     driver_opts:
-#       o: bind
-#       type: none
-#       device: ./sqlite

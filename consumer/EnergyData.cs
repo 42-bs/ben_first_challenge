@@ -37,6 +37,6 @@ namespace Consumer
         /// <summary>
         /// Gets or Sets Representation of date as DateTime.
         /// </summary>
-        public DateTime Timestamp { get; set; }
+        public double? Timestamp { get; set; }
     }
 }

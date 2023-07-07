@@ -41,7 +41,7 @@ namespace Consumer
                 CompanyId = long.Parse(dict["id"].ToString()),
                 ConsumerUnity = dict["consumer_unity"].ToString(),
                 Value = double.Parse(dict["value"].ToString()),
-                Timestamp = DateTime.UnixEpoch.AddSeconds(Convert.ToDouble(dict["date"]))
+                Timestamp = double.Parse(dict["date"].ToString())
             };
             return energyData;
         }
