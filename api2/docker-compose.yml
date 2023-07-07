@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  # api2:
+  #   networks:
+  #     - network_ben2
+  #   depends_on:
+  #     - sqlserver2
+  #   environment:
+  #     DB_SERVER: ${DOCKER_DB2_MSSQL_HOST}
+  #     DB_USER: ${DB2_MSSQL_USER}
+  #     DB_PASS: ${DB2_MSSQL_SA_PASSWORD}
+  #   build:
+  #     context: ./python_backend
+  #     dockerfile: Dockerfile
+  #   # ports:
+  #   #   - "8000:8000"
+
+  sqlserver2:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      - network_ben2
+    environment:
+      ACCEPT_EULA: ${DB2_ACCEPT_EULA}
+      MSSQL_SA_PASSWORD: ${DB2_MSSQL_SA_PASSWORD}
+      MSSQL_PID: ${DB2_MSSQL_PID}
+    ports:
+      - "1434:1433"
+    volumes:
+      - ../db/db2:/var/opt/mssql/data
+
+networks:
+  network_ben2:
+    driver: bridge
