@@ -1,4 +1,5 @@
 from typing import Union
+import datetime
 
 from pydantic import BaseModel
 
@@ -7,7 +8,7 @@ class EnergyDataCreate(BaseModel):
     company_id: int
     consumer_unity: str
     value: float
-    timestamp: int
+    timestamp: datetime.datetime
 
     class Config:
         orm_mode = True
