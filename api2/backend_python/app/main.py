@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from app.crud import create_data_energy, get_all_energy_data
+from app.crud import get_all_energy_data, create_data_energy
 from app.models import DataEnergy
 from app.db import SessionLocal, engine
 

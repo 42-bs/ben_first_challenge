@@ -2,7 +2,7 @@ import requests
 import json
 from app.models import DataEnergy
 
-api1_url = 'http://localhost:5002/api/energy_data'
+api1_url = 'http://host.docker.internal:5002/api/energy_data'
 
 energy_data_list_from_api1 = json.loads(requests.get(api1_url).text)
 
