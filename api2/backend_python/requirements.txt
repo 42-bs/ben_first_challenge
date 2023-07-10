@@ -1,0 +1,11 @@
+fastapi==0.99.1
+pydantic==1.10.11
+pymssql==2.2.7
+pytest==7.4.0
+requests==2.31.0
+SQLAlchemy==2.0.18
+SQLAlchemy-Utils==0.41.1
+uvicorn==0.22.0
+httpcore==0.17.2
+httptools==0.5.0
+httpx==0.24.1
