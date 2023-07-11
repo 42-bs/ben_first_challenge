@@ -42,21 +42,19 @@ namespace Api1
                 };
             });
             builder.Services.AddAuthorization();
+            builder.Services.AddControllers();
 
             // Load the environment variables necessary to connect on Database.
-            // Env.Load();
-            // .
-            // Add services to the container.
-            // builder.Services.AddControllers();
-            // .
+            Env.Load();
+
             // Stablish connection with the database context.
-            // builder.Services.AddDbContext<EnergyDataDbContext>(opt => opt.UseSqlServer(@"Server=" +
-            //        Env.GetString("DB_SERVER") +
-            //        ";Database=Ben; User Id=" +
-            //        Env.GetString("DB_USER") +
-            //        "; Password=" +
-            //        Env.GetString("DB_PASS") +
-            //        ";TrustServerCertificate=true"));
+            builder.Services.AddDbContext<EnergyDataDbContext>(opt => opt.UseSqlServer(@"Server=" +
+                    Env.GetString("DB_SERVER") +
+                    ";Database=Ben; User Id=" +
+                    Env.GetString("DB_USER") +
+                    "; Password=" +
+                    Env.GetString("DB_PASS") +
+                    ";TrustServerCertificate=true"));
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -72,13 +70,12 @@ namespace Api1
             }
 
             // app.UseHttpsRedirection();
-            app.MapGet("/security/getMessage", () => "Cavalinho!").RequireAuthorization();
             app.MapPost(
                 "/security/createToken",
                 [AllowAnonymous]
                 (User user) =>
                 {
-                    if (user.UserName == "joydip" && user.Password == "joydip123")
+                    if (user.UserName == "a" && user.Password == "b")
                     {
                         var issuer = builder.Configuration["Jwt:Issuer"];
                         var audience = builder.Configuration["Jwt:Audience"];
@@ -111,10 +108,9 @@ namespace Api1
                     return Results.Unauthorized();
                 });
 
+            app.MapControllers();
             app.UseAuthentication();
             app.UseAuthorization();
-
-            // app.MapControllers();
             app.Run();
         }
     }

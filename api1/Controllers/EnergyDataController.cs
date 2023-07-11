@@ -4,6 +4,7 @@ namespace Api1.Controllers
     using System.Linq;
     using System.Threading.Tasks;
     using Api1.Models;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
@@ -53,6 +54,19 @@ namespace Api1.Controllers
             }
 
             return energyData;
+        }
+
+        /// <summary>
+        /// Retrieves the energyData table for a specific ID.
+        /// </summary>
+        /// <param name="id">The ID of the energyData table.</param>
+        /// <returns>The energyData table associated with the given ID.</returns>
+        // GET: api/energy_data/5
+        [HttpGet("security/getMessage")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<EnergyData>>> GetMessage()
+        {
+            return await context.CompanyEnergyData.ToListAsync();
         }
 
         /// <summary>
