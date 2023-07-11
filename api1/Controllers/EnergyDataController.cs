@@ -1,6 +1,5 @@
 namespace Api1.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -30,7 +29,7 @@ namespace Api1.Controllers
         /// Retrieves all company energy data.
         /// </summary>
         /// <returns>A collection of company energy data.</returns>
-        // GET: api/Info
+        // GET: api/energy_data
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EnergyData>>> GetCompanyEnergyData()
         {
@@ -42,7 +41,7 @@ namespace Api1.Controllers
         /// </summary>
         /// <param name="id">The ID of the energyData table.</param>
         /// <returns>The energyData table associated with the given ID.</returns>
-        // GET: api/Info/5
+        // GET: api/energy_data/5
         [HttpGet("{id}")]
         public async Task<ActionResult<EnergyData>> GetEnergyData(int id)
         {
