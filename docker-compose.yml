@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 
 services:
   kafka:
@@ -10,7 +10,8 @@ services:
     environment:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
-      - sqlserver1
+      sqlserver1:
+        condition: service_healthy
 
   producer:
     networks:
@@ -58,6 +59,10 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     networks:
       - network_ben
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", -Slocalhost, "-U${DB1_MSSQL_USER}", "-P${DB1_MSSQL_SA_PASSWORD}", "-Q", "SELECT 1"]
+      interval: 5s
+      retries: 20
     environment:
       ACCEPT_EULA: ${DB1_ACCEPT_EULA}
       MSSQL_SA_PASSWORD: ${DB1_MSSQL_SA_PASSWORD}
