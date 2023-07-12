@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.crud import get_all_energy_data, create_data_energy
 from app.models import DataEnergy
@@ -9,16 +9,42 @@ DataEnergy.metadata.create_all(bind=engine)
 app = FastAPI()
 
 def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+	"""
+	Creates and yields a database session.
+
+	Yields:
+	The database session.
+	"""
+	db = SessionLocal()
+	try:
+		yield db
+	finally:
+		db.close()
 
 @app.get("/")
 def root(db: Session = Depends(get_db)):
-    return (get_all_energy_data(db))
+	"""
+	Root endpoint handler. Retrieves all energy data entries from the database.
+
+	Returns:
+	A list of all energy data entries.
+	"""
+	try:
+		return get_all_energy_data(db)
+	except Exception as e:
+		raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.get("/save_from_api1")
 def create_energy_data(db: Session = Depends(get_db)):
-    return (create_data_energy(db))
+	"""
+	Endpoint handler to create energy data in the database from the external API.
+
+	Returns:
+	A dictionary containing the status code and a success message.
+	"""
+	try:
+		result = create_data_energy(db)
+		return {"message": result, "status": 201}
+	except Exception as e:
+		raise HTTPException(status_code=500, detail=str(e))
