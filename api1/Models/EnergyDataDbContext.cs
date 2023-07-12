@@ -5,7 +5,6 @@
 namespace Api1.Models
 {
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
 
     /// <summary>
     /// Define the context of the database and the table for EnergyData model and specify the db provider configuration.
@@ -25,5 +24,14 @@ namespace Api1.Models
         /// Gets or Sets Representation of EnergyData Entity.
         /// </summary>
         public DbSet<EnergyData> CompanyEnergyData { get; set; }
+
+        /// <inheritdoc/>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EnergyData>()
+                .Property(s => s.Id)
+                .HasColumnName("Id")
+                .IsRequired();
+        }
     }
 }
