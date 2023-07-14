@@ -1,0 +1,8 @@
+.mat-table {
+	max-height: 500px;
+	overflow: auto;
+  }
+.mat-mdc-header-cell {
+	background-color: crimson !important;
+	color: black;
+  }
