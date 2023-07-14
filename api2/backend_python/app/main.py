@@ -3,10 +3,23 @@ from sqlalchemy.orm import Session
 from app.crud import get_all_energy_data, create_data_energy
 from app.models import DataEnergy
 from app.db import SessionLocal, engine
+from fastapi.middleware.cors import CORSMiddleware
 
 DataEnergy.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+origins = [
+	"http://localhost:4200",
+]
+
+app.add_middleware(
+	CORSMiddleware,
+	allow_origins=origins,
+	allow_credentials=True,
+	allow_methods=["*"],
+	allow_headers=["*"],
+)
 
 def get_db():
 	"""
