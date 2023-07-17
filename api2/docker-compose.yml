@@ -36,6 +36,18 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
+  frontend_angular:
+    networks:
+      - network_ben2
+    depends_on:
+      sqlserver2:
+        condition: service_healthy
+    build:
+      context: ./frontend_angular
+      dockerfile: Dockerfile
+    ports:
+      - "81:80"
+
 networks:
   network_ben2:
     driver: bridge
