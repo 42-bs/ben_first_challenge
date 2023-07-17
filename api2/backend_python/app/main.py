@@ -11,6 +11,9 @@ app = FastAPI()
 
 origins = [
 	"http://localhost:4200",
+	"http://localhost:81",
+	"http://localhost:80",
+	"http://frontend_angular"
 ]
 
 app.add_middleware(
