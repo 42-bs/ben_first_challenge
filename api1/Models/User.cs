@@ -16,5 +16,11 @@
         /// Gets or sets .
         /// </summary>
         public string Password { get; set; }
+
+        public User(string userName, string password)
+        {
+            UserName = userName;
+            Password = password;
+        }
     }
 }

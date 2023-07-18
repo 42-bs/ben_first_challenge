@@ -32,6 +32,7 @@ namespace Api1.Controllers
         /// <returns>A collection of company energy data.</returns>
         // GET: api/energy_data
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<EnergyData>>> GetCompanyEnergyData()
         {
             return await context.CompanyEnergyData.ToListAsync();
@@ -54,29 +55,6 @@ namespace Api1.Controllers
             }
 
             return energyData;
-        }
-
-        /// <summary>
-        /// Retrieves the energyData table for a specific ID.
-        /// </summary>
-        /// <param name="id">The ID of the energyData table.</param>
-        /// <returns>The energyData table associated with the given ID.</returns>
-        // GET: api/energy_data/5
-        [HttpGet("security/getMessage")]
-        [Authorize]
-        public async Task<ActionResult<IEnumerable<EnergyData>>> GetMessage()
-        {
-            return await context.CompanyEnergyData.ToListAsync();
-        }
-
-        /// <summary>
-        /// Checks if an energyData table with the specified ID exists in the database.
-        /// </summary>
-        /// <param name="id">The ID of the energyData table.</param>
-        /// <returns>True if an energyData table with the specified ID exists; otherwise, false.</returns>
-        private bool EnergyDataExists(int id)
-        {
-            return context.CompanyEnergyData.Any(e => e.Id == id);
         }
     }
 }

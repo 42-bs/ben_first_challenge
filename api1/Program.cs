@@ -1,12 +1,9 @@
 namespace Api1
 {
-    using System.IdentityModel.Tokens.Jwt;
-    using System.Security.Claims;
     using System.Text;
     using Api1.Models;
     using DotNetEnv;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.IdentityModel.Tokens;
 
@@ -23,6 +20,7 @@ namespace Api1
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddControllers();
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -42,7 +40,9 @@ namespace Api1
                 };
             });
             builder.Services.AddAuthorization();
-            builder.Services.AddControllers();
+
+            // Add configuration from appsettings.json
+            builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).AddEnvironmentVariables();
 
             // Load the environment variables necessary to connect on Database.
             Env.Load();
@@ -69,47 +69,10 @@ namespace Api1
                 app.UseSwaggerUI();
             }
 
-            // app.UseHttpsRedirection();
-            app.MapPost(
-                "/security/createToken",
-                [AllowAnonymous]
-                (User user) =>
-                {
-                    if (user.UserName == "a" && user.Password == "b")
-                    {
-                        var issuer = builder.Configuration["Jwt:Issuer"];
-                        var audience = builder.Configuration["Jwt:Audience"];
-                        var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
-                        var tokenDescriptor = new SecurityTokenDescriptor
-                        {
-                            Subject = new ClaimsIdentity(new[]
-                            {
-                                new Claim("Id", Guid.NewGuid().ToString()),
-                                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                                new Claim(JwtRegisteredClaimNames.Email, user.UserName),
-                                new Claim(
-                                    JwtRegisteredClaimNames.Jti,
-                                    Guid.NewGuid().ToString())
-                            }),
-                            Expires = DateTime.UtcNow.AddMinutes(5),
-                            Issuer = issuer,
-                            Audience = audience,
-                            SigningCredentials = new SigningCredentials(
-                                new SymmetricSecurityKey(key),
-                                SecurityAlgorithms.HmacSha512Signature)
-                        };
-                        var tokenHandler = new JwtSecurityTokenHandler();
-                        var token = tokenHandler.CreateToken(tokenDescriptor);
-                        var jwtToken = tokenHandler.WriteToken(token);
-                        var stringToken = tokenHandler.WriteToken(token);
-                        return Results.Ok(stringToken);
-                    }
-
-                    return Results.Unauthorized();
-                });
-
             app.MapControllers();
             app.UseAuthentication();
+            IConfiguration configuration = app.Configuration;
+            IWebHostEnvironment environment = app.Environment;
             app.UseAuthorization();
             app.Run();
         }
