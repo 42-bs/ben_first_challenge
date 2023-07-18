@@ -3,8 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DataEnergyComponent } from './data-energy/data-energy.component';
 
 const routes: Routes = [
-    { path: 'data-energy', component: DataEnergyComponent },
-    { path: '', redirectTo: '/data-energy', pathMatch: 'full' },
+    { path: '', component: DataEnergyComponent }
 ];
 
 @NgModule({
