@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Api1.Models;
+using DotNetEnv;
 
 namespace Api1.Controllers
 {
@@ -30,7 +31,7 @@ namespace Api1.Controllers
                 {
                     var issuer = configuration["Jwt:Issuer"];
                     var audience = configuration["Jwt:Audience"];
-                    var key = Encoding.UTF8.GetBytes(configuration["Jwt:Key"]);
+                    var key = Encoding.UTF8.GetBytes(Env.GetString("JWT_KEY"));
                     var signingCredentials = new SigningCredentials(
                         new SymmetricSecurityKey(key),
                         SecurityAlgorithms.HmacSha512Signature

@@ -33,6 +33,7 @@ services:
       DB_SERVER: ${DOCKER_DB1_MSSQL_HOST}
       DB_USER: ${DB1_MSSQL_USER}
       DB_PASS: ${DB1_MSSQL_SA_PASSWORD}
+      JWT_KEY: ${JWT_KEY}
     build:
       context: ./api1
       dockerfile: Dockerfile
